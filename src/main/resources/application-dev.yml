@@ -1,0 +1,44 @@
+spring:
+  # spring.jpa.hibernate.ddl-auto can be none, update, create, create-drop
+  # none: This is the default for MySQL, no change to the database structure.
+  # update: Hibernate changes the database according to the given Entity structures.
+  # create: Creates the database every time, but don't drop it when close.
+  # create-drop: Creates the database then drops it when the SessionFactory closes.
+  servlet:
+    multipart:
+      enabled: true
+  jpa: 
+    hibernate: 
+      ddl-auto: none
+      use-new-id-generator-mappings: false #不设置这个jpa保存会报错
+    #show-sql: true
+  datasource: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/assets?serverTimezone=UTC 
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+server:
+  port: 8080
+  servlet:
+    context-path: /soup
+#log
+logging: 
+  #日志文件的位置，会在该位置下自动生成spring.log，不能与logging.file共用，共用时logging.file起作用
+  #默认情况下，日志文件的大小达到10MB时会切分一次，产生新的日志文件，默认级别为：ERROR、WARN、INFO
+  #日志配置文件的名字，配置文件要放在resources文件夹下
+  #日志配置文件有默认名，如果用默认名就会被自动扫描到，就不需要配置这个属性
+  #config: classpath:logging-config.xml
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG  
